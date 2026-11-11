@@ -10,33 +10,115 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ComprasRouteImport } from './routes/compras'
+import { Route as MateriasPrimasRouteImport } from './routes/materias-primas'
+import { Route as MrpRouteImport } from './routes/mrp'
+import { Route as PlanejamentoRouteImport } from './routes/planejamento'
+import { Route as ProdutosRouteImport } from './routes/produtos'
+import { Route as ReceitasRouteImport } from './routes/receitas'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ComprasRoute = ComprasRouteImport.update({
+  id: '/compras',
+  path: '/compras',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MateriasPrimasRoute = MateriasPrimasRouteImport.update({
+  id: '/materias-primas',
+  path: '/materias-primas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MrpRoute = MrpRouteImport.update({
+  id: '/mrp',
+  path: '/mrp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlanejamentoRoute = PlanejamentoRouteImport.update({
+  id: '/planejamento',
+  path: '/planejamento',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProdutosRoute = ProdutosRouteImport.update({
+  id: '/produtos',
+  path: '/produtos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReceitasRoute = ReceitasRouteImport.update({
+  id: '/receitas',
+  path: '/receitas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/compras': typeof ComprasRoute
+  '/materias-primas': typeof MateriasPrimasRoute
+  '/mrp': typeof MrpRoute
+  '/planejamento': typeof PlanejamentoRoute
+  '/produtos': typeof ProdutosRoute
+  '/receitas': typeof ReceitasRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/compras': typeof ComprasRoute
+  '/materias-primas': typeof MateriasPrimasRoute
+  '/mrp': typeof MrpRoute
+  '/planejamento': typeof PlanejamentoRoute
+  '/produtos': typeof ProdutosRoute
+  '/receitas': typeof ReceitasRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/compras': typeof ComprasRoute
+  '/materias-primas': typeof MateriasPrimasRoute
+  '/mrp': typeof MrpRoute
+  '/planejamento': typeof PlanejamentoRoute
+  '/produtos': typeof ProdutosRoute
+  '/receitas': typeof ReceitasRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/compras'
+    | '/materias-primas'
+    | '/mrp'
+    | '/planejamento'
+    | '/produtos'
+    | '/receitas'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/compras'
+    | '/materias-primas'
+    | '/mrp'
+    | '/planejamento'
+    | '/produtos'
+    | '/receitas'
+  id:
+    | '__root__'
+    | '/'
+    | '/compras'
+    | '/materias-primas'
+    | '/mrp'
+    | '/planejamento'
+    | '/produtos'
+    | '/receitas'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ComprasRoute: typeof ComprasRoute
+  MateriasPrimasRoute: typeof MateriasPrimasRoute
+  MrpRoute: typeof MrpRoute
+  PlanejamentoRoute: typeof PlanejamentoRoute
+  ProdutosRoute: typeof ProdutosRoute
+  ReceitasRoute: typeof ReceitasRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +130,59 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/compras': {
+      id: '/compras'
+      path: '/compras'
+      fullPath: '/compras'
+      preLoaderRoute: typeof ComprasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/materias-primas': {
+      id: '/materias-primas'
+      path: '/materias-primas'
+      fullPath: '/materias-primas'
+      preLoaderRoute: typeof MateriasPrimasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mrp': {
+      id: '/mrp'
+      path: '/mrp'
+      fullPath: '/mrp'
+      preLoaderRoute: typeof MrpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/planejamento': {
+      id: '/planejamento'
+      path: '/planejamento'
+      fullPath: '/planejamento'
+      preLoaderRoute: typeof PlanejamentoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/produtos': {
+      id: '/produtos'
+      path: '/produtos'
+      fullPath: '/produtos'
+      preLoaderRoute: typeof ProdutosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/receitas': {
+      id: '/receitas'
+      path: '/receitas'
+      fullPath: '/receitas'
+      preLoaderRoute: typeof ReceitasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ComprasRoute: ComprasRoute,
+  MateriasPrimasRoute: MateriasPrimasRoute,
+  MrpRoute: MrpRoute,
+  PlanejamentoRoute: PlanejamentoRoute,
+  ProdutosRoute: ProdutosRoute,
+  ReceitasRoute: ReceitasRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
