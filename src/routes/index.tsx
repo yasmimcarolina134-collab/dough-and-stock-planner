@@ -39,7 +39,7 @@ function Dashboard() {
           <ul className="mt-3 divide-y">
             {planejados.length === 0 && <li className="py-3 text-sm text-muted-foreground">Nenhum produto planejado.</li>}
             {planejados.map((p) => (
-              <li key={p.id} className="flex justify-between py-2.5 text-sm"><span>{p.nome}</span><b>{fmt(dados.plano[p.id])} un</b></li>
+              <li key={p.id} className="flex justify-between py-2.5 text-sm"><span>{p.nome}</span><b>{fmt(dados.plano[p.id] ?? 0)} un</b></li>
             ))}
           </ul>
         </Card>

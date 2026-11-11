@@ -10,13 +10,13 @@ const base: Dados = {
 
 describe("MRP", () => {
   it("líquida = bruta - estoque - recebimentos", () => {
-    const [l] = calcularMRP(base);
+    const l = calcularMRP(base)[0]!;
     expect(l.bruta).toBe(20);
     expect(l.liquida).toBe(5);
     expect(l.suficiente).toBe(false);
   });
   it("não fica negativa quando há estoque suficiente", () => {
-    const [l] = calcularMRP({ ...base, plano: { p: 10 } });
+    const l = calcularMRP({ ...base, plano: { p: 10 } })[0]!;
     expect(l.liquida).toBe(0);
     expect(l.suficiente).toBe(true);
   });
