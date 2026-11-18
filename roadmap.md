@@ -5,3 +5,11 @@
 - [ ] Estoque, fornecedores, movimentações e ordens
 - [ ] MRP, compras e painel gerencial
 - [ ] Testes de regras e verificação das telas
+- [ ] ERP: isolamento por empresa e permissões por perfil
+- [ ] ERP: clientes, funcionários, centros de custo e configurações
+- [ ] ERP: vendas, pedidos e orçamentos integrados ao estoque e financeiro
+- [ ] ERP: compras, cotações, recebimentos e contas a pagar
+- [ ] ERP: lotes, validade, depósitos e transferências
+- [ ] ERP: financeiro, caixa, bancos, DRE e relatórios
+- [ ] ERP: organização fiscal e RH
+- [ ] Integrações externas fiscais, PDV, folha e eSocial (dependem de provedores e credenciais)

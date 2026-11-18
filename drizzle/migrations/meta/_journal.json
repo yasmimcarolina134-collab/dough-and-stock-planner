@@ -8,6 +8,34 @@
       "when": 1795000860810,
       "tag": "0000_bakery_erp",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1795001604085,
+      "tag": "0001_enterprise_tenants",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1795001639340,
+      "tag": "0002_enterprise_modules",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1795001685432,
+      "tag": "0003_erp_transactions",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1795001860708,
+      "tag": "0004_secure_inventory",
+      "breakpoints": true
     }
   ]
 }
