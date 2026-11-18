@@ -11,11 +11,16 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ComprasRouteImport } from './routes/compras'
+import { Route as EstoqueRouteImport } from './routes/estoque'
+import { Route as FornecedoresRouteImport } from './routes/fornecedores'
 import { Route as MateriasPrimasRouteImport } from './routes/materias-primas'
+import { Route as MovimentacoesRouteImport } from './routes/movimentacoes'
 import { Route as MrpRouteImport } from './routes/mrp'
+import { Route as OrdensRouteImport } from './routes/ordens'
 import { Route as PlanejamentoRouteImport } from './routes/planejamento'
 import { Route as ProdutosRouteImport } from './routes/produtos'
 import { Route as ReceitasRouteImport } from './routes/receitas'
+import { Route as SenhaRouteImport } from './routes/senha'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -27,14 +32,34 @@ const ComprasRoute = ComprasRouteImport.update({
   path: '/compras',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EstoqueRoute = EstoqueRouteImport.update({
+  id: '/estoque',
+  path: '/estoque',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FornecedoresRoute = FornecedoresRouteImport.update({
+  id: '/fornecedores',
+  path: '/fornecedores',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MateriasPrimasRoute = MateriasPrimasRouteImport.update({
   id: '/materias-primas',
   path: '/materias-primas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MovimentacoesRoute = MovimentacoesRouteImport.update({
+  id: '/movimentacoes',
+  path: '/movimentacoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MrpRoute = MrpRouteImport.update({
   id: '/mrp',
   path: '/mrp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrdensRoute = OrdensRouteImport.update({
+  id: '/ordens',
+  path: '/ordens',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlanejamentoRoute = PlanejamentoRouteImport.update({
@@ -52,73 +77,113 @@ const ReceitasRoute = ReceitasRouteImport.update({
   path: '/receitas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SenhaRoute = SenhaRouteImport.update({
+  id: '/senha',
+  path: '/senha',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/compras': typeof ComprasRoute
+  '/estoque': typeof EstoqueRoute
+  '/fornecedores': typeof FornecedoresRoute
   '/materias-primas': typeof MateriasPrimasRoute
+  '/movimentacoes': typeof MovimentacoesRoute
   '/mrp': typeof MrpRoute
+  '/ordens': typeof OrdensRoute
   '/planejamento': typeof PlanejamentoRoute
   '/produtos': typeof ProdutosRoute
   '/receitas': typeof ReceitasRoute
+  '/senha': typeof SenhaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/compras': typeof ComprasRoute
+  '/estoque': typeof EstoqueRoute
+  '/fornecedores': typeof FornecedoresRoute
   '/materias-primas': typeof MateriasPrimasRoute
+  '/movimentacoes': typeof MovimentacoesRoute
   '/mrp': typeof MrpRoute
+  '/ordens': typeof OrdensRoute
   '/planejamento': typeof PlanejamentoRoute
   '/produtos': typeof ProdutosRoute
   '/receitas': typeof ReceitasRoute
+  '/senha': typeof SenhaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/compras': typeof ComprasRoute
+  '/estoque': typeof EstoqueRoute
+  '/fornecedores': typeof FornecedoresRoute
   '/materias-primas': typeof MateriasPrimasRoute
+  '/movimentacoes': typeof MovimentacoesRoute
   '/mrp': typeof MrpRoute
+  '/ordens': typeof OrdensRoute
   '/planejamento': typeof PlanejamentoRoute
   '/produtos': typeof ProdutosRoute
   '/receitas': typeof ReceitasRoute
+  '/senha': typeof SenhaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/compras'
+    | '/estoque'
+    | '/fornecedores'
     | '/materias-primas'
+    | '/movimentacoes'
     | '/mrp'
+    | '/ordens'
     | '/planejamento'
     | '/produtos'
     | '/receitas'
+    | '/senha'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/compras'
+    | '/estoque'
+    | '/fornecedores'
     | '/materias-primas'
+    | '/movimentacoes'
     | '/mrp'
+    | '/ordens'
     | '/planejamento'
     | '/produtos'
     | '/receitas'
+    | '/senha'
   id:
     | '__root__'
     | '/'
     | '/compras'
+    | '/estoque'
+    | '/fornecedores'
     | '/materias-primas'
+    | '/movimentacoes'
     | '/mrp'
+    | '/ordens'
     | '/planejamento'
     | '/produtos'
     | '/receitas'
+    | '/senha'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ComprasRoute: typeof ComprasRoute
+  EstoqueRoute: typeof EstoqueRoute
+  FornecedoresRoute: typeof FornecedoresRoute
   MateriasPrimasRoute: typeof MateriasPrimasRoute
+  MovimentacoesRoute: typeof MovimentacoesRoute
   MrpRoute: typeof MrpRoute
+  OrdensRoute: typeof OrdensRoute
   PlanejamentoRoute: typeof PlanejamentoRoute
   ProdutosRoute: typeof ProdutosRoute
   ReceitasRoute: typeof ReceitasRoute
+  SenhaRoute: typeof SenhaRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -137,6 +202,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComprasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/estoque': {
+      id: '/estoque'
+      path: '/estoque'
+      fullPath: '/estoque'
+      preLoaderRoute: typeof EstoqueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fornecedores': {
+      id: '/fornecedores'
+      path: '/fornecedores'
+      fullPath: '/fornecedores'
+      preLoaderRoute: typeof FornecedoresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/materias-primas': {
       id: '/materias-primas'
       path: '/materias-primas'
@@ -144,11 +223,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MateriasPrimasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/movimentacoes': {
+      id: '/movimentacoes'
+      path: '/movimentacoes'
+      fullPath: '/movimentacoes'
+      preLoaderRoute: typeof MovimentacoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mrp': {
       id: '/mrp'
       path: '/mrp'
       fullPath: '/mrp'
       preLoaderRoute: typeof MrpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ordens': {
+      id: '/ordens'
+      path: '/ordens'
+      fullPath: '/ordens'
+      preLoaderRoute: typeof OrdensRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/planejamento': {
@@ -172,17 +265,29 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReceitasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/senha': {
+      id: '/senha'
+      path: '/senha'
+      fullPath: '/senha'
+      preLoaderRoute: typeof SenhaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ComprasRoute: ComprasRoute,
+  EstoqueRoute: EstoqueRoute,
+  FornecedoresRoute: FornecedoresRoute,
   MateriasPrimasRoute: MateriasPrimasRoute,
+  MovimentacoesRoute: MovimentacoesRoute,
   MrpRoute: MrpRoute,
+  OrdensRoute: OrdensRoute,
   PlanejamentoRoute: PlanejamentoRoute,
   ProdutosRoute: ProdutosRoute,
   ReceitasRoute: ReceitasRoute,
+  SenhaRoute: SenhaRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

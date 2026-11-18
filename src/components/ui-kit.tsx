@@ -12,7 +12,7 @@ export function PageHeader({ title, subtitle, action }: { title: string; subtitl
   );
 }
 export function Card({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <div className={`rounded-xl border bg-card p-5 shadow-soft ${className}`}>{children}</div>;
+  return <div className={`rounded-lg border bg-card p-5 shadow-soft ${className}`}>{children}</div>;
 }
 export function Btn({ variant = "primary", className = "", ...p }: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: "primary" | "ghost" | "danger" }) {
   const v = { primary: "bg-primary text-primary-foreground hover:bg-primary/90", ghost: "border bg-card text-foreground hover:bg-accent", danger: "text-destructive hover:bg-destructive/10" }[variant];
@@ -23,7 +23,7 @@ export function Input(p: InputHTMLAttributes<HTMLInputElement>) {
 }
 export function Table({ head, children }: { head: ReactNode[]; children: ReactNode }) {
   return (
-    <div className="overflow-x-auto rounded-xl border bg-card shadow-soft">
+    <div className="overflow-x-auto rounded-lg border bg-card shadow-soft">
       <table className="w-full text-sm">
         <thead className="bg-secondary text-left text-xs uppercase tracking-wide text-secondary-foreground">
           <tr>{head.map((h, i) => <th key={i} className="px-4 py-3 font-semibold whitespace-nowrap">{h}</th>)}</tr>

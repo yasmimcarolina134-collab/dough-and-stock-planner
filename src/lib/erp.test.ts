@@ -1,0 +1,24 @@
+import { describe,it,expect } from 'vitest';
+import { mrp,bomStats,stockStatus,signedMovement,type Product,type Snapshot } from './erp';
+const product=(id:string,props:Partial<Product>={}):Product=>({id,code:1,name:id,description:'',category_id:'raw',type:'Matéria-prima',unit:'KG',cost:4,stock:0,minimum:0,maximum:1000,reserved:0,supplier_id:null,lead_time:0,active:true,batch:1,...props});
+const s:Snapshot={products:[product('bread',{type:'Produto acabado',unit:'UN',batch:100}),product('flour',{stock:20}),product('water',{stock:50,unit:'L',cost:0.1}),product('yeast',{stock:500,unit:'G',cost:0.025}),product('salt',{stock:2000,unit:'G',cost:0.003}),product('sugar',{stock:3000,unit:'G',cost:0.004})],bom:[['flour',6],['water',3.6],['yeast',120],['salt',120],['sugar',100]].map(([id,q],i)=>({id:String(i),product_id:'bread',component_id:String(id),quantity:Number(q)})),demands:[{id:'d',product_id:'bread',quantity:500,due_date:'2026-11-25'}],orders:[]};
+describe('ERP rules',()=>{
+ it('500 breads require 30 kg flour for a 100 unit batch with 6 kg',()=>expect(mrp(s).find(p=>p.id==='flour')?.gross).toBe(30));
+ it('net includes safety stock reservations and open purchases',()=>{const d={...s,products:s.products.map(p=>p.id==='flour'?{...p,minimum:5,reserved:2}:p),orders:[{id:'o',product_id:'flour',type:'Compra',quantity:3,status:'Aberta',due_date:'2026-11-24'}]};expect(mrp(d).find(p=>p.id==='flour')?.net).toBe(14);});
+ it('never generates negative needs',()=>expect(mrp(s).find(p=>p.id==='salt')?.net).toBe(0));
+ it('open production offsets demand',()=>expect(mrp({...s,orders:[{id:'o',product_id:'bread',type:'Produção',quantity:100,status:'Aberta',due_date:'2026-11-24'}]}).find(p=>p.id==='flour')?.gross).toBe(24));
+ it('late purchases do not cover demand',()=>expect(mrp({...s,orders:[{id:'o',product_id:'flour',type:'Compra',quantity:50,status:'Aberta',due_date:'2026-11-26'}]}).find(p=>p.id==='flour')?.net).toBe(10));
+ it('lead time determines release date',()=>expect(mrp({...s,products:s.products.map(p=>p.id==='flour'?{...p,lead_time:3}:p)}).find(p=>p.id==='flour')?.start).toBe('2026-11-22'));
+ it('calculates BOM cost capacity and totals by unit',()=>{const st=bomStats(s,'bread');expect(st.cost).toBeCloseTo(28.12);expect(st.capacity).toBe(333);expect(st.totals.KG).toBe(6);expect(st.totals.L).toBe(3.6);expect(st.totals.G).toBe(340);});
+ it('explodes intermediates aggregating shared requirements once',()=>{const d:Snapshot={products:[product('a',{type:'Produto acabado'}),product('b',{type:'Produto acabado'}),product('m',{type:'Intermediário',stock:2}),product('f',{stock:1})],bom:[{id:'1',product_id:'a',component_id:'m',quantity:1},{id:'2',product_id:'b',component_id:'m',quantity:2},{id:'3',product_id:'m',component_id:'f',quantity:3}],orders:[],demands:[{id:'1',product_id:'a',quantity:4,due_date:'2026-11-25'},{id:'2',product_id:'b',quantity:3,due_date:'2026-11-25'}]};expect(mrp(d).find(p=>p.id==='m')?.net).toBe(8);expect(mrp(d).find(p=>p.id==='f')?.net).toBe(23);});
+ it('flags zero stock',()=>expect(stockStatus(product('p'))).toBe('Estoque zerado'));
+ it('deducts reservations for low stock',()=>expect(stockStatus(product('p',{stock:5,reserved:3,minimum:4}))).toBe('Estoque baixo'));
+ it('minimum is within limits',()=>expect(stockStatus(product('p',{stock:4,minimum:4}))).toBe('Dentro do limite'));
+ it('flags excess stock',()=>expect(stockStatus(product('p',{stock:11,maximum:10}))).toBe('Acima do máximo'));
+ it('production exit reduces stock',()=>expect(signedMovement('Saída para produção',2)).toBe(-2));
+ it('losses reduce stock',()=>expect(signedMovement('Perdas e desperdícios',3)).toBe(-3));
+ it('purchase entry increases stock',()=>expect(signedMovement('Entrada de compras',4)).toBe(4));
+ it('manufactured entry increases stock',()=>expect(signedMovement('Entrada de produtos fabricados',5)).toBe(5));
+ it('adjustments preserve sign',()=>expect(signedMovement('Ajustes de inventário',-3)).toBe(-3));
+ it('rejects zero movement',()=>expect(()=>signedMovement('Devoluções',0)).toThrow());
+});

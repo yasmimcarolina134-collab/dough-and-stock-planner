@@ -28,3 +28,9 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## ERP architecture
+- Use normalized Cloud tables as the authoritative ERP state, with authenticated shared bakery access; browser storage must not hold inventory balances.
+- Perform stock movements and order completion atomically in PostgreSQL to prevent negative stock and partial production postings.
+- Keep multi-level BOM costing and topological MRP netting in the browser-safe ERP domain module so shared components are netted only once.
+- Stock changes for existing products use movements, while product creation may define the opening balance, to preserve a traceable inventory ledger.

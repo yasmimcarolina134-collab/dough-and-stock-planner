@@ -12,7 +12,9 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { AppShell } from "../components/AppShell";
-import { StoreProvider } from "../lib/store";
+import { ERPProvider } from "../lib/erp-store";
+import { AuthGate } from "../components/AuthGate";
+import { Toaster } from "sonner";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -109,7 +111,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <head>
         <HeadContent />
       </head>
@@ -127,7 +129,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <StoreProvider><AppShell><Outlet /></AppShell></StoreProvider>
+      <ERPProvider><AuthGate><AppShell><Outlet /></AppShell></AuthGate><Toaster richColors /></ERPProvider>
     </QueryClientProvider>
   );
 }
